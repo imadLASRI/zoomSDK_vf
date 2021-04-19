@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Webevents-app Visio</title>
+    <meta charset="utf-8" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.9.1/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/1.9.1/css/react-select.css" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+</head>
+
+<body>
+    <style>
+                .sdk-select {
+            height: 34px;
+            border-radius: 4px;
+        }
+		
+		.websdktest button {
+            float: right;
+            margin-left: 5px;
+        }
+        #nav-tool {
+            margin-bottom: 0px;
+            height: 100%;
+            background-color: #fff;
+            background-position-x: right;
+            background-position-y: top;
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        #show-test-tool {
+            position: absolute;
+            top: 100px;
+            left: 0;
+            display: block;
+            z-index: 99999;        
+        }
+        #display_name {
+            width: 300px;
+        }
+        
+
+        #websdk-iframe {
+            width: 100px;
+            height: 500px;
+            border: 1px;
+            border-color: red;
+            border-style: dashed;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            margin: 0;
+        }
+
+        /*  */
+        /*  */
+
+        #meeting_form{
+            display: flex !important;
+            align-items: baseline;
+            width: 100%;
+        }
+        #join_meeting{
+            margin-left: 10px !important;
+            height: 33px !important;
+            background-color: #F2AB4A !important;
+            border-color: #fff !important;
+        }
+        #loader{
+            width: 100px;
+            margin-left: 10px !important;
+            height: 50px !important;
+            display: none;
+        }
+        #loader img{
+            width: 100%;
+            max-height: 120%;
+        }
+
+        #join-pc-audio-btn{
+            background-color: #d62c70 !important;
+        }
+
+        .chat-control-receiver, .zm-btn--primary {
+            background-color: #d62c70 !important;
+        }
+        .btn-primary, .btn-primary:hover {
+            background-color: #d62c70 !important;
+            border-color: #d62c70 !important;
+        }
+
+        input[type=text]:focus {
+            outline: none !important;
+        }
+
+        .sasLogo{
+            display: none;
+            width: 70px;
+            margin: 0 5px;
+        }
+        .sasLogo img{
+            width: 100%;
+        }
+
+        #connexion{
+            width: 100%;
+            background-color: rgba(0,0,0,0.6);
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .zm-modal-footer{
+            /* display: none !important; */
+        }
+
+        @media only screen and (min-width: 1200px){
+            .container {
+                width: auto !important;
+            }
+        }
+
+        @media only screen and (max-width: 400px) {
+            #chat-window, #participant-window {
+                width: 350px !important;
+            }
+            .zm-modal{
+                min-width: 320px !important;
+            }
+            .meeting-tip {
+                text-align: center;
+                padding-top: 23px;
+                text-align: left;
+            }
+            .top{
+                display: none !important;
+            }
+
+            .more-button .dropup .dropdown-menu, .navbar-fixed-bottom .dropdown .dropdown-menu {
+                margin-left: -70px !important;
+            }
+
+            .bottom .btn {
+                margin: 0 14px !important;
+            }
+
+            .bottom-btn-container > button:first-of-type {
+                display: none;
+            }
+            .sasLogo{
+                width: 50px;
+                margin: 0 5px;
+            }
+            #display_name {
+                width: 250px;
+            }
+            .suspension-content2{
+                width: 100px;
+            }
+            .suspension-header{
+                display: none !important;
+            }
+        }
+    </style>
+    
+    <nav id="nav-tool" class="navbar-fixed-top">
+        <div class="container" id="connexion">
+            <div id="navbar" class="websdktest">
+                <form class="navbar-form navbar-right" id="meeting_form">
+                    <!-- <div class="sasLogo" >
+                        <img src="sas.jpg" height="35">
+                    </div> -->
+                    <div class="form-group">
+                        <input type="text" name="display_name" id="display_name" maxLength="100"
+                            placeholder="Nom et prénom" class="form-control" required>
+                    </div>
+
+                    <input type="hidden" value="" id="copy_link_value"/>
+                    <button type="submit" class="btn btn-primary" id="join_meeting">Rejoindre</button>
+                    <div id="loader">
+                        <img src="loader.svg" alt="">
+                    </div>
+                </form>
+            </div>
+            <!--/.navbar-collapse -->
+        </div>
+    </nav>
+
+    <script src="https://source.zoom.us/1.9.1/lib/vendor/react.min.js"></script>
+    <script src="https://source.zoom.us/1.9.1/lib/vendor/react-dom.min.js"></script>
+    <script src="https://source.zoom.us/1.9.1/lib/vendor/redux.min.js"></script>
+    <script src="https://source.zoom.us/1.9.1/lib/vendor/redux-thunk.min.js"></script>
+    <script src="https://source.zoom.us/1.9.1/lib/vendor/lodash.min.js"></script>
+    <script src="https://source.zoom.us/zoom-meeting-1.9.1.min.js"></script>
+    <script src="js/tool.js"></script>
+    <script src="js/vconsole.min.js"></script>
+
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous">
+    </script>
+        
+    <script src="js/index.js"></script>
+
+</body>
+
+</html>
